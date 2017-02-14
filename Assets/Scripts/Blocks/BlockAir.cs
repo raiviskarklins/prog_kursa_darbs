@@ -6,9 +6,8 @@ using System;
 
 public class BlockAir : Block {
 
-    public BlockAir()
-        : base(){
-
+    public BlockAir():base(){
+		blockType = BlockType.Air;
     }
 
     public override MeshData Blockdata(Chunk chunk, int x, int y, int z, MeshData meshData)

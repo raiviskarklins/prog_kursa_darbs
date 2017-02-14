@@ -5,9 +5,11 @@ using System;
 [Serializable]
 public class Block {
 
+
     const float tileSize = 0.25f;
 
     public bool changed = true;
+
 
     public enum Direction
     {
@@ -19,6 +21,20 @@ public class Block {
         Down
     };
 
+	public enum BlockType
+	{
+		Air,
+		Dirt,
+		Grass,
+		Leaves,
+		Stone,
+		Wood
+	};
+
+	public BlockType blockType;
+	public float blockStrenght;
+
+
     public struct Tile {
         public int x;
         public int y;
@@ -27,8 +43,8 @@ public class Block {
     public virtual Tile TexturePosition(Direction direction)
     {
         Tile tile = new Tile();
-        tile.x = 0;
-        tile.y = 0;
+        tile.x = -1;
+        tile.y = -1;
         return tile;
     }
 

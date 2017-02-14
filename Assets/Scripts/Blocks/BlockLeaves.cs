@@ -5,9 +5,9 @@ using System;
 
 public class BlockLeaves : Block {
 
-    public BlockLeaves()
-    : base()
+    public BlockLeaves():base()
     {
+		blockType = BlockType.Leaves;
     }
     public override Tile TexturePosition(Direction direction)
     {

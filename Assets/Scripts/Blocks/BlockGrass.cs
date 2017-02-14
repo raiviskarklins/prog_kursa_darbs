@@ -9,7 +9,7 @@ public class BlockGrass : Block {
 
     public BlockGrass() : base()
     {
-
+		blockType = BlockType.Grass;
     }
     public override Tile TexturePosition(Direction direction)
     {

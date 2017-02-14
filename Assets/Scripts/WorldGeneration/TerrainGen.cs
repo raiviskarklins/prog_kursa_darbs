@@ -33,42 +33,10 @@ public class TerrainGen {
         return chunk;
     }
 
-	public Chunk GenerateBlocks(Chunk chunk, int x, int z, float baseHeight,
-		float frequency, float mountainHeight, float minHeight, float baseNoise, float baseNoiseHeight){
-		int height = Mathf.FloorToInt(baseHeight);
-		height += GetNoise (x, 0, z, frequency, Mathf.FloorToInt (mountainHeight));
 
-		if (height < minHeight)
-			height = Mathf.FloorToInt (minHeight);
-
-		height += GetNoise(x, 0, z, baseNoise, Mathf.FloorToInt(baseNoiseHeight));
-
-		for (int y = chunk.pos.y - 20; y < chunk.pos.y + Chunk.chunkSize; y++) {
-			if (y <= height) {
-				SetBlock (x, y, z, new Block (), chunk);
-			}
-		}
-		return chunk;
-	}
-
-	public Chunk GenerateAir(Chunk chunk, int x, int z){
-
-		for (int y = chunk.pos.y - 20; y < chunk.pos.y + Chunk.chunkSize; y++)
-		{
-				SetBlock(x, y, z, new BlockAir(), chunk);
-		}
-
-		return chunk;
-	}
 
     public Chunk ChunkColumnGen(Chunk chunk, int x, int z)
     {
-
-
-		//chunk = GenerateAir (chunk, x, z);
-		//chunk = GenerateBlocks (chunk, x, z, stoneBaseHeight, stoneMountainFrequency, stoneMountainHeight,
-		//	stoneMinHeight, stoneBaseNoise, stoneBaseNoiseHeight);
-
 
         int stoneHeight = Mathf.FloorToInt(stoneBaseHeight);
         stoneHeight += GetNoise(x, 0, z, stoneMountainFrequency, Mathf.FloorToInt(stoneMountainHeight));
@@ -85,7 +53,7 @@ public class TerrainGen {
         {
             if (y <= stoneHeight)
             {
-                SetBlock(x, y, z, new Block(), chunk);
+                SetBlock(x, y, z, new BlockStone(), chunk);
             }
             else if (y <= dirtHeight)
             {
@@ -99,7 +67,7 @@ public class TerrainGen {
 
 
         //Caves
-		/*
+
         for (int y = chunk.pos.y; y < chunk.pos.y + Chunk.chunkSize; y++)
         {
             //Get a value to base cave generation on
@@ -118,7 +86,7 @@ public class TerrainGen {
             {
                 SetBlock(x, y, z, new BlockAir(), chunk);
             }
-        }*/
+        }
 
         return chunk;
     }
@@ -138,6 +106,7 @@ public class TerrainGen {
     void CreateTree(int x, int y, int z, Chunk chunk)
     {
         //create leaves
+
         for (int xi = -2; xi <= 2; xi++)
         {
             for (int yi = 4; yi <= 8; yi++)

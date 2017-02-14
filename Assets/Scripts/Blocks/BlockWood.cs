@@ -7,7 +7,7 @@ public class BlockWood : Block{
 
     public BlockWood() : base()
     {
-
+		blockType = BlockType.Wood;
     }
 
     public override Tile TexturePosition(Direction direction)
