@@ -2,11 +2,13 @@
 using System.Collections;
 using SimplexNoise;
 
-public class TerrainGen {
+public class TerrainGen
+{
 
     float stoneBaseHeight = -24;
     float stoneBaseNoise = 0.05f;
     float stoneBaseNoiseHeight = 4;
+
     float stoneMountainHeight = 48;
     float stoneMountainFrequency = 0.008f;
     float stoneMinHeight = -12;
@@ -23,9 +25,9 @@ public class TerrainGen {
 
     public Chunk ChunkGen(Chunk chunk)
     {
-        for (int x = chunk.pos.x - 3; x < chunk.pos.x + Chunk.chunkSize + 3; x++) 
+        for (int x = chunk.pos.x - 3; x < chunk.pos.x + Chunk.chunkSize + 3; x++) //Change this line
         {
-            for (int z = chunk.pos.z - 3; z < chunk.pos.z + Chunk.chunkSize + 3; z++)
+            for (int z = chunk.pos.z - 3; z < chunk.pos.z + Chunk.chunkSize + 3; z++)//and this line
             {
                 chunk = ChunkColumnGen(chunk, x, z);
             }
@@ -33,11 +35,8 @@ public class TerrainGen {
         return chunk;
     }
 
-
-
     public Chunk ChunkColumnGen(Chunk chunk, int x, int z)
     {
-
         int stoneHeight = Mathf.FloorToInt(stoneBaseHeight);
         stoneHeight += GetNoise(x, 0, z, stoneMountainFrequency, Mathf.FloorToInt(stoneMountainHeight));
 
@@ -49,64 +48,35 @@ public class TerrainGen {
         int dirtHeight = stoneHeight + Mathf.FloorToInt(dirtBaseHeight);
         dirtHeight += GetNoise(x, 100, z, dirtNoise, Mathf.FloorToInt(dirtNoiseHeight));
 
-        for (int y = chunk.pos.y - 20; y < chunk.pos.y + Chunk.chunkSize; y++)
-        {
-            if (y <= stoneHeight)
-            {
-                SetBlock(x, y, z, new BlockStone(), chunk);
-            }
-            else if (y <= dirtHeight)
-            {
-                SetBlock(x, y, z, new BlockGrass(), chunk);
-            }
-            else
-            {
-                SetBlock(x, y, z, new BlockAir(), chunk);
-            }
-        }
-
-
-        //Caves
-
-        for (int y = chunk.pos.y; y < chunk.pos.y + Chunk.chunkSize; y++)
+        for (int y = chunk.pos.y - 8; y < chunk.pos.y + Chunk.chunkSize; y++)
         {
             //Get a value to base cave generation on
             int caveChance = GetNoise(x, y, z, caveFrequency, 100);
+
             if (y <= stoneHeight && caveSize < caveChance)
             {
-                SetBlock(x, y, z, new Block(), chunk);
+                SetBlock(x, y, z, new BlockStone(), chunk);
             }
-            else if (y <= dirtHeight && caveSize < caveChance) 
+            else if (y <= dirtHeight && caveSize < caveChance)
             {
                 SetBlock(x, y, z, new BlockGrass(), chunk);
-                if (y == dirtHeight && GetNoise(x, 0, z, treeFrequency, 100) < treeDensity)  
+
+                if (y == dirtHeight && GetNoise(x, 0, z, treeFrequency, 100) < treeDensity)
                     CreateTree(x, y + 1, z, chunk);
             }
             else
             {
                 SetBlock(x, y, z, new BlockAir(), chunk);
             }
+
         }
 
         return chunk;
     }
 
-    public static void SetBlock(int x, int y, int z, Block block, Chunk chunk, bool replaceBlocks = false)
-    {
-        x -= chunk.pos.x;
-        y -= chunk.pos.y;
-        z -= chunk.pos.z;
-        if (Chunk.InRange(x) && Chunk.InRange(y) && Chunk.InRange(z))
-        {
-            if (replaceBlocks || chunk.blocks[x, y, z] == null)
-                chunk.SetBlock(x, y, z, block);
-        }
-    }
-
     void CreateTree(int x, int y, int z, Chunk chunk)
     {
         //create leaves
-
         for (int xi = -2; xi <= 2; xi++)
         {
             for (int yi = 4; yi <= 8; yi++)
@@ -117,10 +87,24 @@ public class TerrainGen {
                 }
             }
         }
+
         //create trunk
         for (int yt = 0; yt < 6; yt++)
         {
             SetBlock(x, y + yt, z, new BlockWood(), chunk, true);
+        }
+    }
+
+    public static void SetBlock(int x, int y, int z, Block block, Chunk chunk, bool replaceBlocks = false)
+    {
+        x -= chunk.pos.x;
+        y -= chunk.pos.y;
+        z -= chunk.pos.z;
+
+        if (Chunk.InRange(x) && Chunk.InRange(y) && Chunk.InRange(z))
+        {
+            if (replaceBlocks || chunk.blocks[x, y, z] == null)
+                chunk.SetBlock(x, y, z, block);
         }
     }
 

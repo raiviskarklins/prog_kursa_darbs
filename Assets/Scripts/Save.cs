@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using System;
 
 [Serializable]
-
-public class Save{
-
+public class Save
+{
     public Dictionary<WorldPos, Block> blocks = new Dictionary<WorldPos, Block>();
 
     public Save(Chunk chunk)

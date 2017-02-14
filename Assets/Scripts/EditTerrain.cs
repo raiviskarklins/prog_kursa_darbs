@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public static class EditTerrain {
-
+public static class EditTerrain
+{
     public static WorldPos GetBlockPos(Vector3 pos)
     {
         WorldPos blockPos = new WorldPos(
@@ -10,6 +10,7 @@ public static class EditTerrain {
             Mathf.RoundToInt(pos.y),
             Mathf.RoundToInt(pos.z)
             );
+
         return blockPos;
     }
 
@@ -26,7 +27,7 @@ public static class EditTerrain {
 
     static float MoveWithinBlock(float pos, float norm, bool adjacent = false)
     {
-        if(pos - (int)pos == 0.5f || pos - (int)pos == -0.5f)
+        if (pos - (int)pos == 0.5f || pos - (int)pos == -0.5f)
         {
             if (adjacent)
             {
@@ -37,6 +38,7 @@ public static class EditTerrain {
                 pos -= (norm / 2);
             }
         }
+
         return (float)pos;
     }
 
@@ -49,10 +51,11 @@ public static class EditTerrain {
         WorldPos pos = GetBlockPos(hit, adjacent);
 
         chunk.world.SetBlock(pos.x, pos.y, pos.z, block);
+
         return true;
     }
 
-    public static Block GetBlock (RaycastHit hit, bool adjacent = false)
+    public static Block GetBlock(RaycastHit hit, bool adjacent = false)
     {
         Chunk chunk = hit.collider.GetComponent<Chunk>();
         if (chunk == null)

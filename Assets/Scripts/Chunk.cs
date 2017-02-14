@@ -1,17 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(MeshCollider))]
 
-public class Chunk : MonoBehaviour {
+public class Chunk : MonoBehaviour
+{
+
+    public Block[, ,] blocks = new Block[chunkSize, chunkSize, chunkSize];
 
     public static int chunkSize = 16;
-
-    public bool rendered;
     public bool update = false;
-
-    public Block[,,] blocks = new Block[chunkSize, chunkSize, chunkSize];
+    public bool rendered;
 
     MeshFilter filter;
     MeshCollider coll;
@@ -19,29 +20,26 @@ public class Chunk : MonoBehaviour {
     public World world;
     public WorldPos pos;
 
-    // Initialization
-	void Start () {
-
+    void Start()
+    {
         filter = gameObject.GetComponent<MeshFilter>();
         coll = gameObject.GetComponent<MeshCollider>();
-
     }
-	
-	// Update is called once per frame
-	void Update () {
 
+    //Update is called once per frame
+    void Update()
+    {
         if (update)
         {
             update = false;
             UpdateChunk();
         }
-	}
+    }
 
     public Block GetBlock(int x, int y, int z)
     {
         if (InRange(x) && InRange(y) && InRange(z))
             return blocks[x, y, z];
-
         return world.GetBlock(pos.x + x, pos.y + y, pos.z + z);
     }
 
@@ -49,12 +47,13 @@ public class Chunk : MonoBehaviour {
     {
         if (index < 0 || index >= chunkSize)
             return false;
+
         return true;
     }
 
     public void SetBlock(int x, int y, int z, Block block)
     {
-        if(InRange(x) && InRange(y) && InRange(z))
+        if (InRange(x) && InRange(y) && InRange(z))
         {
             blocks[x, y, z] = block;
         }
@@ -63,11 +62,21 @@ public class Chunk : MonoBehaviour {
             world.SetBlock(pos.x + x, pos.y + y, pos.z + z, block);
         }
     }
-    //Updates the chunk based on its contents
+
+    public void SetBlocksUnmodified()
+    {
+        foreach (Block block in blocks)
+        {
+            block.changed = false;
+        }
+    }
+
+    // Updates the chunk based on its contents
     void UpdateChunk()
     {
         rendered = true;
         MeshData meshData = new MeshData();
+
         for (int x = 0; x < chunkSize; x++)
         {
             for (int y = 0; y < chunkSize; y++)
@@ -78,6 +87,7 @@ public class Chunk : MonoBehaviour {
                 }
             }
         }
+
         RenderMesh(meshData);
     }
 
@@ -101,12 +111,4 @@ public class Chunk : MonoBehaviour {
         coll.sharedMesh = mesh;
     }
 
-
-    public void SetBlockUnmodified()
-    {
-        foreach(Block block in blocks)
-        {
-            block.changed = false;
-        }
-    }
 }

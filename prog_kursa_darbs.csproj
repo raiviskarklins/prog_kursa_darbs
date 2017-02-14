@@ -95,6 +95,7 @@
     <Compile Include="Assets\Scripts\Blocks\BlockGrass.cs" />
     <Compile Include="Assets\Scripts\Blocks\BlockLeaves.cs" />
     <Compile Include="Assets\Scripts\Blocks\BlockRedstone.cs" />
+    <Compile Include="Assets\Scripts\Blocks\BlockStone.cs" />
     <Compile Include="Assets\Scripts\Blocks\BlockWood.cs" />
     <Compile Include="Assets\Scripts\Chunk.cs" />
     <Compile Include="Assets\Scripts\EditTerrain.cs" />
