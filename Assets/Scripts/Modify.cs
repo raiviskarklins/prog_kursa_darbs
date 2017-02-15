@@ -10,8 +10,11 @@ public class Modify : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+
+
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.forward, out hit, 4))
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			if (Physics.Raycast(transform.position, ray.direction, out hit, 4f))
             {
                 EditTerrain.SetBlock(hit, new BlockAir());
             }

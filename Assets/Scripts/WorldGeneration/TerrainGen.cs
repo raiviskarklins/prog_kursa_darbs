@@ -57,11 +57,15 @@ public class TerrainGen
             {
                 SetBlock(x, y, z, new BlockStone(), chunk);
             }
-            else if (y <= dirtHeight && caveSize < caveChance)
+			else if (y < dirtHeight && caveSize < caveChance)
+			{
+				SetBlock(x, y, z, new BlockDirt(), chunk);
+			}
+            else if (y == dirtHeight && caveSize < caveChance)
             {
                 SetBlock(x, y, z, new BlockGrass(), chunk);
 
-                if (y == dirtHeight && GetNoise(x, 0, z, treeFrequency, 100) < treeDensity)
+                if (GetNoise(x, 0, z, treeFrequency, 100) < treeDensity)
                     CreateTree(x, y + 1, z, chunk);
             }
             else
