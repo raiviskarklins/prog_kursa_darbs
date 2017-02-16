@@ -72,39 +72,48 @@ public static class EditTerrain
             {
                 x = -1;
             }
-            else
+            if (ray.direction.x < 0)
             {
                 x = 1;
             }
         }
-        else if (Mathf.Abs(ray.direction.y) > Mathf.Abs(ray.direction.x) && Mathf.Abs(ray.direction.y) > Mathf.Abs(ray.direction.z))
+        if (Mathf.Abs(ray.direction.y) > Mathf.Abs(ray.direction.x) && Mathf.Abs(ray.direction.y) > Mathf.Abs(ray.direction.z))
         {
             if (ray.direction.y > 0)
             {
                 y = -1;
             }
-            else
+            if (ray.direction.y < 0)
             {
                 y = 1;
             }
         }
-        else if (Mathf.Abs(ray.direction.z) > Mathf.Abs(ray.direction.x) && Mathf.Abs(ray.direction.z) > Mathf.Abs(ray.direction.y))
+        if (Mathf.Abs(ray.direction.z) > Mathf.Abs(ray.direction.x) && Mathf.Abs(ray.direction.z) > Mathf.Abs(ray.direction.y))
         {
             if (ray.direction.z > 0)
             {
                 z = -1;
             }
-            else
+            if (ray.direction.z < 0)
             {
                 z = 1;
             }
         }
 
-        chunk.world.SetBlock(pos.x + x, pos.y + y, pos.z + z, block);
+        Block test = chunk.world.GetBlock(pos.x + x, pos.y + y, pos.z + z);
 
 
+        Debug.Log("X: " + Mathf.Abs(ray.direction.x));
+        Debug.Log("Y: " + Mathf.Abs(ray.direction.y));
+        Debug.Log("Z: " + Mathf.Abs(ray.direction.z));
+        Debug.Log("------------------------------------------------------------");
 
-        return true;
+        if (test.blockType == Block.BlockType.Air)
+        {
+            chunk.world.SetBlock(pos.x + x, pos.y + y, pos.z + z, block);
+            return true;
+        }
+        return false;
     }
 
     public static Block GetBlock(RaycastHit hit, bool adjacent = false)

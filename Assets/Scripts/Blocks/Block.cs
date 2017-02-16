@@ -2,6 +2,24 @@
 using System.Collections;
 using System;
 
+
+//public class Tile
+//{
+//    public int x;
+//    public int y;
+//    public Direction faceDirection;
+//}
+
+//public enum Direction
+//{
+//    North,
+//    East,
+//    South,
+//    West,
+//    Up,
+//    Down
+//};
+
 [Serializable]
 public class Block {
 
@@ -21,7 +39,7 @@ public class Block {
         Down
     };
 
-	public enum BlockType
+    public enum BlockType
 	{
 		Air,
 		Dirt,
@@ -36,7 +54,8 @@ public class Block {
     public bool IsBroken;
 
 
-    public struct Tile {
+    public struct Tile
+    {
         public int x;
         public int y;
     }
@@ -46,6 +65,7 @@ public class Block {
         Tile tile = new Tile();
         tile.x = -1;
         tile.y = -1;
+       // tile.faceDirection = direction;
         return tile;
     }
 
