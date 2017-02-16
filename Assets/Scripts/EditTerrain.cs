@@ -55,6 +55,58 @@ public static class EditTerrain
         return true;
     }
 
+    public static bool SetBlockPlayer(RaycastHit hit, Ray ray, Block block, bool adjacent = false)
+    {
+        Chunk chunk = hit.collider.GetComponent<Chunk>();
+        if (chunk == null)
+            return false;
+        WorldPos pos = GetBlockPos(hit, adjacent);
+
+        int x = 0;
+        int y = 0;
+        int z = 0;
+
+        if (Mathf.Abs(ray.direction.x) > Mathf.Abs(ray.direction.y) && Mathf.Abs(ray.direction.x) > Mathf.Abs(ray.direction.z))
+        {
+            if (ray.direction.x > 0)
+            {
+                x = -1;
+            }
+            else
+            {
+                x = 1;
+            }
+        }
+        else if (Mathf.Abs(ray.direction.y) > Mathf.Abs(ray.direction.x) && Mathf.Abs(ray.direction.y) > Mathf.Abs(ray.direction.z))
+        {
+            if (ray.direction.y > 0)
+            {
+                y = -1;
+            }
+            else
+            {
+                y = 1;
+            }
+        }
+        else if (Mathf.Abs(ray.direction.z) > Mathf.Abs(ray.direction.x) && Mathf.Abs(ray.direction.z) > Mathf.Abs(ray.direction.y))
+        {
+            if (ray.direction.z > 0)
+            {
+                z = -1;
+            }
+            else
+            {
+                z = 1;
+            }
+        }
+
+        chunk.world.SetBlock(pos.x + x, pos.y + y, pos.z + z, block);
+
+
+
+        return true;
+    }
+
     public static Block GetBlock(RaycastHit hit, bool adjacent = false)
     {
         Chunk chunk = hit.collider.GetComponent<Chunk>();

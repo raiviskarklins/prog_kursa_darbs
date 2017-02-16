@@ -92,6 +92,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Blocks\Block.cs" />
     <Compile Include="Assets\Scripts\Blocks\BlockAir.cs" />
+    <Compile Include="Assets\Scripts\Blocks\BlockDirt.cs" />
     <Compile Include="Assets\Scripts\Blocks\BlockGrass.cs" />
     <Compile Include="Assets\Scripts\Blocks\BlockLeaves.cs" />
     <Compile Include="Assets\Scripts\Blocks\BlockRedstone.cs" />
