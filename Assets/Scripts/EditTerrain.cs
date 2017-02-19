@@ -25,6 +25,16 @@ public static class EditTerrain
         return GetBlockPos(pos);
     }
 
+    public static Vector3 GetBlockPosVector(RaycastHit hit)
+    {
+        Vector3 pos = new Vector3(
+            hit.point.x,
+            hit.point.y,
+            hit.point.z);
+
+        return pos;
+    }
+
     static float MoveWithinBlock(float pos, float norm, bool adjacent = false)
     {
         if (pos - (int)pos == 0.5f || pos - (int)pos == -0.5f)
@@ -39,7 +49,7 @@ public static class EditTerrain
             }
         }
 
-        return (float)pos;
+        return pos;
     }
 
     public static bool SetBlock(RaycastHit hit, Block block, bool adjacent = false)
@@ -62,55 +72,74 @@ public static class EditTerrain
             return false;
         WorldPos pos = GetBlockPos(hit, adjacent);
 
-        int x = 0;
-        int y = 0;
-        int z = 0;
+        Vector3 blockPosition = new Vector3(pos.x, pos.y, pos.z);
+        Vector3 hitVector = blockPosition - hit.point;
+        Vector3 failSafe = blockPosition;
 
-        if (Mathf.Abs(ray.direction.x) > Mathf.Abs(ray.direction.y) && Mathf.Abs(ray.direction.x) > Mathf.Abs(ray.direction.z))
+        hitVector.x = Mathf.Abs(hitVector.x);
+        hitVector.y = Mathf.Abs(hitVector.y);
+        hitVector.z = Mathf.Abs(hitVector.z);
+
+        Debug.Log("X: " + blockPosition.x);
+        Debug.Log("Y: " + blockPosition.y);
+        Debug.Log("Z: " + blockPosition.z);
+        Debug.Log("------------------------------------------------------------");
+
+        Debug.Log("X: " + hitVector.x);
+        Debug.Log("Y: " + hitVector.y);
+        Debug.Log("Z: " + hitVector.z);
+        Debug.Log("------------------------------------------------------------");
+
+        if (hitVector.x > hitVector.z && hitVector.x > hitVector.y)
         {
             if (ray.direction.x > 0)
             {
-                x = -1;
+                blockPosition.x -= 1;
             }
             if (ray.direction.x < 0)
             {
-                x = 1;
+                blockPosition.x += 1;
             }
         }
-        if (Mathf.Abs(ray.direction.y) > Mathf.Abs(ray.direction.x) && Mathf.Abs(ray.direction.y) > Mathf.Abs(ray.direction.z))
+        else if (hitVector.y > hitVector.x && hitVector.y > hitVector.z)
         {
             if (ray.direction.y > 0)
             {
-                y = -1;
+                blockPosition.y -= 1;
             }
             if (ray.direction.y < 0)
             {
-                y = 1;
+                blockPosition.y += 1;
             }
         }
-        if (Mathf.Abs(ray.direction.z) > Mathf.Abs(ray.direction.x) && Mathf.Abs(ray.direction.z) > Mathf.Abs(ray.direction.y))
+        else
         {
             if (ray.direction.z > 0)
             {
-                z = -1;
+                blockPosition.z -= 1;
             }
             if (ray.direction.z < 0)
             {
-                z = 1;
+                blockPosition.z += 1;
             }
         }
 
-        Block test = chunk.world.GetBlock(pos.x + x, pos.y + y, pos.z + z);
+    //    if (blockPosition == failSafe)
+    //        blockPosition.y += 1;
 
-
-        Debug.Log("X: " + Mathf.Abs(ray.direction.x));
-        Debug.Log("Y: " + Mathf.Abs(ray.direction.y));
-        Debug.Log("Z: " + Mathf.Abs(ray.direction.z));
         Debug.Log("------------------------------------------------------------");
+        Debug.Log("X: " + blockPosition.x);
+        Debug.Log("Y: " + blockPosition.y);
+        Debug.Log("Z: " + blockPosition.z);
+        Debug.Log("------------------------------------------------------------");
+
+        Block test = chunk.world.GetBlock(blockPosition);
+
+
 
         if (test.blockType == Block.BlockType.Air)
         {
-            chunk.world.SetBlock(pos.x + x, pos.y + y, pos.z + z, block);
+            chunk.world.SetBlock(blockPosition, block);
             return true;
         }
         return false;
