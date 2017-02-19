@@ -65,7 +65,7 @@ public static class EditTerrain
         return true;
     }
 
-    public static bool SetBlockPlayer(RaycastHit hit, Ray ray, Block block, bool adjacent = false)
+    public static bool SetBlockPlayer(RaycastHit hit, Ray ray, Block block, Vector3 playerPos, bool adjacent = false)
     {
         Chunk chunk = hit.collider.GetComponent<Chunk>();
         if (chunk == null)
@@ -74,7 +74,6 @@ public static class EditTerrain
 
         Vector3 blockPosition = new Vector3(pos.x, pos.y, pos.z);
         Vector3 hitVector = blockPosition - hit.point;
-        Vector3 failSafe = blockPosition;
 
         hitVector.x = Mathf.Abs(hitVector.x);
         hitVector.y = Mathf.Abs(hitVector.y);
@@ -124,9 +123,6 @@ public static class EditTerrain
             }
         }
 
-    //    if (blockPosition == failSafe)
-    //        blockPosition.y += 1;
-
         Debug.Log("------------------------------------------------------------");
         Debug.Log("X: " + blockPosition.x);
         Debug.Log("Y: " + blockPosition.y);
@@ -134,10 +130,13 @@ public static class EditTerrain
         Debug.Log("------------------------------------------------------------");
 
         Block test = chunk.world.GetBlock(blockPosition);
+        playerPos.x = Mathf.RoundToInt(playerPos.x);
+        playerPos.y = Mathf.RoundToInt(playerPos.y);
+        playerPos.z = Mathf.RoundToInt(playerPos.z);
+        Vector3 playerPos_y = playerPos;
+        playerPos_y.y += 1;
 
-
-
-        if (test.blockType == Block.BlockType.Air)
+        if (test.blockType == Block.BlockType.Air && playerPos != blockPosition && playerPos_y != blockPosition)
         {
             chunk.world.SetBlock(blockPosition, block);
             return true;

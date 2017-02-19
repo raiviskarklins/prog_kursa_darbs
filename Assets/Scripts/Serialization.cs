@@ -30,9 +30,6 @@ public static class Serialization
     public static void SaveChunk(Chunk chunk)
     {
         Save save = new Save(chunk);
-     //   if (save.blocks.Count == 0)
-      //      return;
-
         string saveFile = SaveLocation(chunk.world.worldName);
         saveFile += FileName(chunk.pos);
 

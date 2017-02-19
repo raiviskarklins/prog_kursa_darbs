@@ -14,7 +14,7 @@ public class Modify : MonoBehaviour
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2.0f, Screen.height / 2.0f, 0));
-			if (Physics.Raycast(ray, out hit, 4f))
+			if (Physics.Raycast(ray, out hit, 5f))
             {
                 EditTerrain.SetBlock(hit, new BlockAir());
             }
@@ -27,8 +27,8 @@ public class Modify : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2.0f, Screen.height / 2.0f, 0));
             if (Physics.Raycast(ray, out hit, 5f))
             {
-
-                EditTerrain.SetBlockPlayer(hit, ray, new BlockDirt());
+               
+                EditTerrain.SetBlockPlayer(hit, ray, new BlockDirt(), transform.position);
             }
         }
     }

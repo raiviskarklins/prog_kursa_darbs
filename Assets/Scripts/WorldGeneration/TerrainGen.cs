@@ -5,6 +5,8 @@ using SimplexNoise;
 public class TerrainGen
 {
 
+    static int seed = (int)Network.time * 10;
+
     float stoneBaseHeight = -24;
     float stoneBaseNoise = 0.05f;
     float stoneBaseNoiseHeight = 4;
@@ -25,9 +27,9 @@ public class TerrainGen
 
     public Chunk ChunkGen(Chunk chunk)
     {
-        for (int x = chunk.pos.x - 3; x < chunk.pos.x + Chunk.chunkSize + 3; x++) //Change this line
+        for (int x = chunk.pos.x - 3; x < chunk.pos.x + Chunk.chunkSize + 3; x++)
         {
-            for (int z = chunk.pos.z - 3; z < chunk.pos.z + Chunk.chunkSize + 3; z++)//and this line
+            for (int z = chunk.pos.z - 3; z < chunk.pos.z + Chunk.chunkSize + 3; z++)
             {
                 chunk = ChunkColumnGen(chunk, x, z);
             }
@@ -37,6 +39,7 @@ public class TerrainGen
 
     public Chunk ChunkColumnGen(Chunk chunk, int x, int z)
     {
+
         int stoneHeight = Mathf.FloorToInt(stoneBaseHeight);
         stoneHeight += GetNoise(x, 0, z, stoneMountainFrequency, Mathf.FloorToInt(stoneMountainHeight));
 
@@ -114,6 +117,6 @@ public class TerrainGen
 
     public static int GetNoise(int x, int y, int z, float scale, int max)
     {
-        return Mathf.FloorToInt((Noise.Generate(x * scale, y * scale, z * scale) + 1f) * (max / 2f));
+        return Mathf.FloorToInt((Noise.Generate((x + seed) * scale, y * scale, (z + seed) * scale) + 1f) * (max / 2f));
     }
 }

@@ -32,7 +32,7 @@ public class World : MonoBehaviour {
 
         newChunk.SetBlocksUnmodified();
 
-        Serialization.Load(newChunk);
+       Serialization.Load(newChunk);
     }
 
     public void DestroyChunk(int x, int y, int z)
