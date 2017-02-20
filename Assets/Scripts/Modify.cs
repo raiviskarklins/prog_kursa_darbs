@@ -28,7 +28,7 @@ public class Modify : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 5f))
             {
                
-                EditTerrain.SetBlockPlayer(hit, ray, new BlockDirt(), transform.position);
+                EditTerrain.SetBlockPlayer(hit, ray, new BlockCobbleStone(), transform.position);
             }
         }
     }

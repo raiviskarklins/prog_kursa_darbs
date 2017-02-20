@@ -12,8 +12,8 @@ public class BlockStone : Block {
 	public override Tile TexturePosition(Direction direction)
 	{
 		Tile tile = new Tile();
-		tile.x = 0;
-		tile.y = 0;
+		tile.x = 3;
+		tile.y = 1;
 		return tile;
 	}
 }

@@ -45,8 +45,8 @@ public class Block {
     public virtual Tile TexturePosition(Direction direction)
     {
         Tile tile = new Tile();
-        tile.x = -1;
-        tile.y = -1;
+        tile.x = 0;
+        tile.y = 0;
         return tile;
     }
 

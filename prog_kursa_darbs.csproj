@@ -92,6 +92,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Blocks\Block.cs" />
     <Compile Include="Assets\Scripts\Blocks\BlockAir.cs" />
+    <Compile Include="Assets\Scripts\Blocks\BlockCobbleStone.cs" />
     <Compile Include="Assets\Scripts\Blocks\BlockDirt.cs" />
     <Compile Include="Assets\Scripts\Blocks\BlockGrass.cs" />
     <Compile Include="Assets\Scripts\Blocks\BlockLeaves.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="Assets\Scripts\Blocks\BlockStone.cs" />
     <Compile Include="Assets\Scripts\Blocks\BlockWood.cs" />
     <Compile Include="Assets\Scripts\Chunk.cs" />
+    <Compile Include="Assets\Scripts\DayNight.cs" />
     <Compile Include="Assets\Scripts\EditTerrain.cs" />
     <Compile Include="Assets\Scripts\FPSDisplay.cs" />
     <Compile Include="Assets\Scripts\LoadChunks.cs" />
