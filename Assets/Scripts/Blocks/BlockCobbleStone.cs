@@ -6,7 +6,7 @@ public class BlockCobbleStone : Block {
 
 public BlockCobbleStone() : base()
     {
-
+        blockType = BlockType.CobbleStone;
     }
 
     public override Tile TexturePosition(Direction direction)

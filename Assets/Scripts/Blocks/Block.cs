@@ -24,6 +24,7 @@ public class Block {
     public enum BlockType
 	{
 		Air,
+        CobbleStone,
 		Dirt,
 		Grass,
 		Leaves,

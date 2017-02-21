@@ -6,7 +6,7 @@ public class BlockDirt : Block {
 
 
 	public BlockDirt():base(){
-		blockType = BlockType.Grass;
+		blockType = BlockType.Dirt;
 	}
 	public override Tile TexturePosition(Direction direction)
 	{
