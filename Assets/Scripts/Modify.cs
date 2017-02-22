@@ -32,7 +32,13 @@ public class Modify : MonoBehaviour
     void Update()
     {
 
-        
+        foreach (Inventory slot in playerInventory)
+        {
+            if (slot.amount == 0)
+            {
+                slot.block = new BlockAir();
+            }
+        }
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;

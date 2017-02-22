@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DayNight : MonoBehaviour {
 
-    const float cycleMins = 1f;
+    const float cycleMins = 15f;
     const float cycleCalc = 0.1f / cycleMins * (-1f);
 
     void FixedUpdate () {
