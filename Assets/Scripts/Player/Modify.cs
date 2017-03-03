@@ -1,12 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Inventory
-{
-    public Block block;
-    public int amount;
-}
-
 public class Modify : MonoBehaviour
 {
 
@@ -22,8 +16,8 @@ public class Modify : MonoBehaviour
         for (int i = 0; i< playerInventory.Length; i++)
         {
             playerInventory[i] = new Inventory();
-            playerInventory[i].block = new BlockAir();
-            playerInventory[i].amount = 0;
+            playerInventory[i].Block = new BlockAir();
+            playerInventory[i].Amount = 0;
         }
     }
 
@@ -34,9 +28,9 @@ public class Modify : MonoBehaviour
 
         foreach (Inventory slot in playerInventory)
         {
-            if (slot.amount == 0)
+            if (slot.Amount == 0)
             {
-                slot.block = new BlockAir();
+                slot.Block = new BlockAir();
             }
         }
         if (Input.GetMouseButtonDown(0))
@@ -50,11 +44,11 @@ public class Modify : MonoBehaviour
 
                 foreach(Inventory slot in playerInventory)
                 {
-                    if(slot.block.blockType == Block.BlockType.Air || slot.block.blockType == temp.blockType)
+                    if(slot.Block.blockType == Block.BlockType.Air || slot.Block.blockType == temp.blockType)
                     {
-                        slot.block = temp;
-                        slot.amount++;
-                        Debug.Log(slot.amount);
+                        slot.Block = temp;
+                        slot.Amount++;
+                        Debug.Log(slot.Amount);
                         break;
                     }
                 }
@@ -69,11 +63,11 @@ public class Modify : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2.0f, Screen.height / 2.0f, 0));
             if (Physics.Raycast(ray, out hit, 5f))
             {
-               if (playerInventory[inventoryIndex].amount > 0)
+               if (playerInventory[inventoryIndex].Amount > 0)
                 {
-                    EditTerrain.SetBlockPlayer(hit, ray, playerInventory[inventoryIndex].block, transform.position);
-                    playerInventory[inventoryIndex].amount--;
-                    Debug.Log(playerInventory[inventoryIndex].amount);
+                    EditTerrain.SetBlockPlayer(hit, ray, playerInventory[inventoryIndex].Block, transform.position);
+                    playerInventory[inventoryIndex].Amount--;
+                    Debug.Log(playerInventory[inventoryIndex].Amount);
                 }
             }
         }
