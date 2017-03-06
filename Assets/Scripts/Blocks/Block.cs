@@ -93,40 +93,43 @@ public class Block {
     }
     public virtual MeshData Blockdata(Chunk chunk, int x, int y, int z, MeshData meshData)
     {
-        meshData.useRenderDataForCol = true;
-
         float deviation = 0;
         if (IsBroken)
+        {
             deviation = 0.20f;
+        }
         else
+        {
+            meshData.useRenderDataForCol = true;
             deviation = 0.5f;
+        }
 
-        if (!chunk.GetBlock(x, y + 1, z).IsSolid(Direction.Down))
+        if (!chunk.GetBlock(x, y + 1, z).IsSolid(Direction.Down) || chunk.GetBlock(x, y + 1, z).IsBroken)
         {
             meshData = FaceDataUp(chunk, x, y, z, meshData, deviation);
         }
 
-        if (!chunk.GetBlock(x, y - 1, z).IsSolid(Direction.Up))
+        if (!chunk.GetBlock(x, y - 1, z).IsSolid(Direction.Up) || chunk.GetBlock(x, y - 1, z).IsBroken)
         {
             meshData = FaceDataDown(chunk, x, y, z, meshData, deviation);
         }
 
-        if (!chunk.GetBlock(x, y, z + 1).IsSolid(Direction.South))
+        if (!chunk.GetBlock(x, y, z + 1).IsSolid(Direction.South) || chunk.GetBlock(x, y, z + 1).IsBroken)
         {
             meshData = FaceDataNorth(chunk, x, y, z, meshData, deviation);
         }
 
-        if (!chunk.GetBlock(x, y, z - 1).IsSolid(Direction.North))
+        if (!chunk.GetBlock(x, y, z - 1).IsSolid(Direction.North) || chunk.GetBlock(x, y, z - 1).IsBroken)
         {
             meshData = FaceDataSouth(chunk, x, y, z, meshData, deviation);
         }
 
-        if (!chunk.GetBlock(x + 1, y, z).IsSolid(Direction.West))
+        if (!chunk.GetBlock(x + 1, y, z).IsSolid(Direction.West) || chunk.GetBlock(x + 1, y, z).IsBroken)
         {
             meshData = FaceDataEast(chunk, x, y, z, meshData, deviation);
         }
 
-        if (!chunk.GetBlock(x - 1, y, z).IsSolid(Direction.East))
+        if (!chunk.GetBlock(x - 1, y, z).IsSolid(Direction.East) || chunk.GetBlock(x - 1, y, z).IsBroken)
         {
             meshData = FaceDataWest(chunk, x, y, z, meshData, deviation);
         }

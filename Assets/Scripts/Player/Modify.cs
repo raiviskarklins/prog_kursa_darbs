@@ -41,6 +41,7 @@ public class Modify : MonoBehaviour
             {
 
              Block temp = EditTerrain.GetBlock(hit);
+                temp.IsBroken = true;
 
                 foreach(Inventory slot in playerInventory)
                 {
