@@ -10,6 +10,8 @@ public class Block {
 
     public bool changed = true;
 
+	public Vector3 location;
+
 
     public enum Direction
     {
@@ -93,14 +95,23 @@ public class Block {
     }
     public virtual MeshData Blockdata(Chunk chunk, int x, int y, int z, MeshData meshData)
     {
+
+		meshData.useRenderDataForCol = true;
+
         float deviation = 0;
         if (IsBroken)
         {
             deviation = 0.20f;
+			meshData = FaceDataUp(chunk, x, y, z, meshData, deviation);
+			meshData = FaceDataDown(chunk, x, y, z, meshData, deviation);
+			meshData = FaceDataNorth(chunk, x, y, z, meshData, deviation);
+			meshData = FaceDataSouth(chunk, x, y, z, meshData, deviation);
+			meshData = FaceDataEast(chunk, x, y, z, meshData, deviation);
+			meshData = FaceDataWest(chunk, x, y, z, meshData, deviation);
+			return meshData;
         }
         else
-        {
-            meshData.useRenderDataForCol = true;
+        {    
             deviation = 0.5f;
         }
 
@@ -139,10 +150,10 @@ public class Block {
 
     protected virtual MeshData FaceDataUp (Chunk chunk, int x, int y, int z, MeshData meshData, float deviation)
     {
-        meshData.AddVertex(new Vector3(x - deviation, y + deviation, z + deviation));
-        meshData.AddVertex(new Vector3(x + deviation, y + deviation, z + deviation));
-        meshData.AddVertex(new Vector3(x + deviation, y + deviation, z - deviation));
-        meshData.AddVertex(new Vector3(x - deviation, y + deviation, z - deviation));
+		meshData.AddVertex(new Vector3(x - deviation, y + deviation, z + deviation));
+		meshData.AddVertex(new Vector3(x + deviation, y + deviation, z + deviation));
+		meshData.AddVertex(new Vector3(x + deviation, y + deviation, z - deviation));
+		meshData.AddVertex(new Vector3(x - deviation, y + deviation, z - deviation));
         meshData.AddQuadTriangles();
 
         meshData.uv.AddRange(FaceUVs(Direction.Up));
@@ -222,6 +233,11 @@ public class Block {
         meshData.uv.AddRange(FaceUVs(Direction.West));
         return meshData;
     }
+	public Block BreakBlock(){
+		this.IsBroken = true;
+		return this;
+	}
+
 
 
 }

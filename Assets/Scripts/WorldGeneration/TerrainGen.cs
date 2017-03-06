@@ -108,6 +108,7 @@ public class TerrainGen
         x -= chunk.pos.x;
         y -= chunk.pos.y;
         z -= chunk.pos.z;
+		block.location = new Vector3 (x, y, z);
 
         if (Chunk.InRange(x) && Chunk.InRange(y) && Chunk.InRange(z))
         {

@@ -79,15 +79,15 @@ public static class EditTerrain
         hitVector.y = Mathf.Abs(hitVector.y);
         hitVector.z = Mathf.Abs(hitVector.z);
 
-        Debug.Log("X: " + blockPosition.x);
-        Debug.Log("Y: " + blockPosition.y);
-        Debug.Log("Z: " + blockPosition.z);
-        Debug.Log("------------------------------------------------------------");
+      //  Debug.Log("X: " + blockPosition.x);
+      //  Debug.Log("Y: " + blockPosition.y);
+    //    Debug.Log("Z: " + blockPosition.z);
+    //    Debug.Log("------------------------------------------------------------");
 
-        Debug.Log("X: " + hitVector.x);
-        Debug.Log("Y: " + hitVector.y);
-        Debug.Log("Z: " + hitVector.z);
-        Debug.Log("------------------------------------------------------------");
+   //     Debug.Log("X: " + hitVector.x);
+    //    Debug.Log("Y: " + hitVector.y);
+   //     Debug.Log("Z: " + hitVector.z);
+   //     Debug.Log("------------------------------------------------------------");
 
         if (hitVector.x > hitVector.z && hitVector.x > hitVector.y)
         {
@@ -123,11 +123,11 @@ public static class EditTerrain
             }
         }
 
-        Debug.Log("------------------------------------------------------------");
-        Debug.Log("X: " + blockPosition.x);
-        Debug.Log("Y: " + blockPosition.y);
-        Debug.Log("Z: " + blockPosition.z);
-        Debug.Log("------------------------------------------------------------");
+    //    Debug.Log("------------------------------------------------------------");
+   //     Debug.Log("X: " + blockPosition.x);
+   //     Debug.Log("Y: " + blockPosition.y);
+    //    Debug.Log("Z: " + blockPosition.z);
+    //    Debug.Log("------------------------------------------------------------");
 
         Block test = chunk.world.GetBlock(blockPosition);
         playerPos.x = Mathf.RoundToInt(playerPos.x);

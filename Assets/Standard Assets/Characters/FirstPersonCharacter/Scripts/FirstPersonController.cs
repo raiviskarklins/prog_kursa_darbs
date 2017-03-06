@@ -28,6 +28,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
 
+		//private float start_y;
+	//	private float land_y;
+
         private Camera m_Camera;
         private bool m_Jump;
         private float m_YRotation;
@@ -80,7 +83,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 m_MoveDir.y = 0f;
             }
-
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
         }
 
@@ -114,6 +116,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 m_MoveDir.y = -m_StickToGroundForce;
 
+			//	start_y = m_CharacterController.transform.position.y;
+
                 if (m_Jump)
                 {
                     m_MoveDir.y = m_JumpSpeed;
@@ -125,7 +129,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
             else
             {
                 m_MoveDir += Physics.gravity*m_GravityMultiplier*Time.fixedDeltaTime;
+			//	land_y = m_CharacterController.transform.position.y;
             }
+
+			//Debug.Log ("Sākums : " + start_y);
+			//Debug.Log ("Beigas : " + land_y);
+		//	if (land_y - start_y > 4){
+			//	Debug.Log ("Starpība : " + (land_y - start_y));
+		//	}
+
             m_CollisionFlags = m_CharacterController.Move(m_MoveDir*Time.fixedDeltaTime);
 
             ProgressStepCycle(speed);

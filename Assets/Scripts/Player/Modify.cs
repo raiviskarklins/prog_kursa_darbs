@@ -40,8 +40,9 @@ public class Modify : MonoBehaviour
 			if (Physics.Raycast(ray, out hit, 5f))
             {
 
-             Block temp = EditTerrain.GetBlock(hit);
-                temp.IsBroken = true;
+				Block temp = EditTerrain.GetBlock(hit).BreakBlock();
+				Debug.Log ("Block Location : " + temp.location);
+               // temp.IsBroken = true;
 
                 foreach(Inventory slot in playerInventory)
                 {
